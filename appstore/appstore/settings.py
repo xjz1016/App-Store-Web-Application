@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'rest_framework',  # Add
     'social_django',  # Add
     'home.apps.HomeConfig',  # Add - Common folder
-    # 'ads.apps.AdsConfig',  # Add - Common folder
 ]
 
 # When we get to crispy forms :)
