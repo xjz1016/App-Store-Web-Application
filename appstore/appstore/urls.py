@@ -22,6 +22,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', include('home.urls')),  # Keep
     path('admin/', admin.site.urls),  # Keep
+    path('accounts/', include('accounts.urls')), # new
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
