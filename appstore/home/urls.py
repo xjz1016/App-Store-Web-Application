@@ -25,3 +25,7 @@ try:
 except:
     print('Using registration/login.html as the login template for',settings.LOGIN_URL)
 
+# password_reset = 'registration/password_reset_form.html'
+# urlpatterns += [
+#      path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name=password_reset)),
+# ]
