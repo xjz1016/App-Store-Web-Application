@@ -1,11 +1,10 @@
 {% extends 'base_bootstrap.html' %}
-{% load app_tags %} <!-- see home/templatetags/app_tags.py -->
-{% block navbar %}
+<!-- {% load app_tags %} see home/templatetags/app_tags.py -->
 <!-- https://www.w3schools.com/booTsTrap/bootstrap_navbar.asp -->
+{% block navbar %}
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -44,12 +43,4 @@
     </ul>
   </div>
 </nav>
-
-<!-- <div class="container">
-  <h3>Right Aligned Navbar</h3>
-  <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
-</div> -->
-
-</body>
-</html>
 {% endblock %}
