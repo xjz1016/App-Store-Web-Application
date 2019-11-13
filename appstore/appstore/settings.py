@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'social_django',  # Add
     'home.apps.HomeConfig',  # Add - Common folder
     'accounts.apps.AccountsConfig', # new
+    'app.apps.AppConfig',
 ]
 
 # When we get to crispy forms :)

@@ -61,7 +61,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="{% url 'signup'%}?next={{request.path}}" style="color: white"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               {% if user.is_authenticated %}
-              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">User: {{ user.get_username }} <span class="caret"></span></a>
+              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">User: {{ user.get_username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Profile</a></li>
                   <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
@@ -221,7 +221,7 @@
 </div>
 
 <footer class="container-fluid">
-  <p>Footer Text</p>
+  <p>Powered by SI664 project team</p>
 </footer>
 
 </body>

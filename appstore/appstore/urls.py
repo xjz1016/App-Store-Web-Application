@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')), # new
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    path('app/', include('app.urls')),
 ]
 
 # if 'social_django' in settings.INSTALLED_APPS :
