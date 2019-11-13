@@ -23,6 +23,10 @@
       color: white;
       padding: 15px;
     }
+
+    .navbar-default{
+      background-color: #333;
+    }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -31,19 +35,19 @@
         padding: 15px;
       }
       .row.content {height: auto;} 
+    }
 
-      .icon {
-          
-      }
+    #round{
+      border-radius: 25px;
     }
   </style>
 </head>
 <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-default">
             <img class="navbar-form navbar-left" src="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iosapps/itunes/ios11-app-icon-app-store.png" height="35" width="35">
           <div class="container-fluid">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">Appstore</a>
+              <a class="navbar-brand" href="#" style="color: white">Appstore</a>
             </div>
             <form class="navbar-form navbar-left" action="/action_page.php">
               <div class="form-group">
@@ -55,7 +59,7 @@
               
             </form>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="{% url 'signup'%}?next={{request.path}}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="{% url 'signup'%}?next={{request.path}}" style="color: white"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               {% if user.is_authenticated %}
               <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">User: {{ user.get_username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -65,77 +69,153 @@
               </li>
                 <!-- <li><a href="{% url 'logout'%}?next={{request.path}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> -->
               {% else %}
-                <li><a href="{% url 'login'%}?next={{request.path}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="{% url 'login'%}?next={{request.path}}" style="color: white"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
               {% endif %} 
             </ul>
           </div>
         </nav>
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-2 sidenav">
       <h4>Apps</h4>
       <ul class="nav nav-pills nav-stacked">
         <li class="active"><a href="#section1" style="background:#333">Home</a></li>
         <li><a href="#section2" style="color: #333">Category</a></li>
         <li><a href="#section3" style="color: #333">Rank</a></li>
+        <li><a href="#section3" style="color: #333">Language</a></li>
       </ul><br>
     </div>
 
     <div class="col-sm-9">
       <hr>
-      <h2>Editor's Choice</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by Jane Dane, Sep 27, 2015.</h5>
-      <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
-      <p>Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <br><br>
-      
-      <hr>
-      <h2>Popular Apps</h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
-      <h5><span class="label label-success">Lorem</span></h5><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-
-      <h4>Leave a Comment:</h4>
-      <form role="form">
-        <div class="form-group">
-          <textarea class="form-control" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-      </form>
-      <br><br>
-      
-      <p><span class="badge">2</span> Comments:</p><br>
-      
-      <div class="row">
-        <div class="col-sm-2 text-center">
-          <img src="bandmember.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>Anja <small>Sep 29, 2015, 9:12 PM</small></h4>
-          <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-        </div>
-        <div class="col-sm-2 text-center">
-          <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
-          <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-          <p><span class="badge">1</span> Comment:</p><br>
-          <div class="row">
-            <div class="col-sm-2 text-center">
-              <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+      <h2>Popular Apps <button type="button" href="#" class="btn btn-success pull-right"> See more</button></h2><br><br>
+      <div class="container-fluid">    
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/3a/46/38/3a46386f-f4fb-25b0-328d-4d9b743a9997/AppIcon-0-1x_U007emarketing-0-0-0-85-220-0-4.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">WeChat</div>
             </div>
-            <div class="col-xs-10">
-              <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
-              <p>Me too! WOW!</p>
-              <br>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/eb/2b/e0/eb2be091-76be-3965-0def-fdb46f9f3f2d/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">YouTube</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/93/c3/a4/93c3a453-41b3-cfb5-906e-a5ed44b0ae56/Icon-Production-0-1x_U007emarketing-0-0-85-220-0-7.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Facebook</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/ea/e7/b1/eae7b182-5979-78f1-e61e-1758bbc15602/Prod-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Instagram</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/c7/38/2b/c7382b6a-0aab-87cd-78fb-2a53cf9c30a7/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-0-85-220.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Pinterest</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/8a/d5/7d/8ad57daf-4669-ae7f-aa79-87f7f3448f78/ProductionAppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Twitter</div>
             </div>
           </div>
         </div>
-      </div>
+      </div><br>
+      
+      <hr>
+      <h2>New Releases <button type="button" href="#" class="btn btn-success pull-right"> See more</button></h2><br><br>
+      <div class="container-fluid">    
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/ce/cc/7b/cecc7ba4-a2a0-982a-7b4d-afacf0ffb153/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Knowable</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/7d/c3/6b/7dc36b02-5b94-dfb1-fa4c-c13c338ff771/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">FiLMiC Firstlight</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f5/a0/02/f5a00203-e4c7-e023-9297-383cf341331b/AppIcon-7-0-0-1x_U007emarketing-0-0-0-6-0-85-220.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Train Kit: Space</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/57/1a/ff/571aff85-2646-1ef1-ef8d-595552f31906/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/230x0w.png" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Disney Coloring World</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/58/d0/5d/58d05d45-6120-3393-a815-c4d1ef3557a0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Halide Camera</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/59/cb/ba/59cbbaf5-be0d-d28d-48d5-e83beca4866f/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/460x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Rebel Racing</div>
+            </div>
+          </div>
+        </div>
+      </div><br>
+      <hr>
+      <h2>New Releases <button type="button" href="#" class="btn btn-success pull-right"> See more</button></h2><br><br>
+      <div class="container-fluid">    
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/ce/cc/7b/cecc7ba4-a2a0-982a-7b4d-afacf0ffb153/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Knowable</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/7d/c3/6b/7dc36b02-5b94-dfb1-fa4c-c13c338ff771/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">FiLMiC Firstlight</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/f5/a0/02/f5a00203-e4c7-e023-9297-383cf341331b/AppIcon-7-0-0-1x_U007emarketing-0-0-0-6-0-85-220.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Train Kit: Space</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/57/1a/ff/571aff85-2646-1ef1-ef8d-595552f31906/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/230x0w.png" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Disney Coloring World</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/58/d0/5d/58d05d45-6120-3393-a815-c4d1ef3557a0/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Halide Camera</div>
+            </div>
+          </div>
+          <div class="col-sm-2"> 
+            <div class="panel panel-default">
+              <div class="panel-body"><img src="https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/59/cb/ba/59cbbaf5-be0d-d28d-48d5-e83beca4866f/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-7.png/460x0w.png" class="img-responsive" id="round" style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Rebel Racing</div>
+            </div>
+          </div>
+        </div>
+      </div><br>
+      <hr>
+
       </div>
   </div>
 </div>
