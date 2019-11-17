@@ -25,6 +25,9 @@ class App(models.Model):
         'Language',
         related_name='app_language'
     )
+    # Picture
+    picture = models.BinaryField(null=True, editable=True)
+    content_type = models.CharField(max_length=256, null=True, help_text='The MIMEType of the file')
     def __str__(self):
         return self.app_name
 
