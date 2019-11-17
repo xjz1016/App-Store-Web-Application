@@ -25,16 +25,23 @@ class App(models.Model):
         'Language',
         related_name='app_language'
     )
+    def __str__(self):
+        return self.app_name
 
 
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.category_name
 
 
 class Developer(models.Model):
     developer_id = models.AutoField(primary_key=True)
     developer_name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.developer_name
+
 
 
 class Review(models.Model):
@@ -63,6 +70,8 @@ class Reviewer(models.Model):
         'App', 
         related_name='Review',
     )
+    def __str__(self):
+        return self.reviewer_name
 
 
 class Language(models.Model):
@@ -72,3 +81,5 @@ class Language(models.Model):
         'App',
         related_name='app_language'
     )
+    def __str__(self):
+        return self.language_name
