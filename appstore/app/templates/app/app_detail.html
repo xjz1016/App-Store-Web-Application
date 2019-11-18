@@ -1,6 +1,146 @@
-{% extends "base_bootstrap.html" %}
+{% extends "home/base_menu.html" %}
 {% load humanize %} 
 {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    .navbar-default{
+      background-color: #333;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+
+    #round{
+      border-radius: 25px;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row content">
+    
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-3">
+                    <img style="float:left; max-width:100%;" src="{% url 'app:app_picture' app.app_id %}" id="round" height="180" width="180">
+                    <br><br>
+                </div>
+
+                <div class="col-sm-2" style= "text-align: left">
+                    <h2>{{app.app_name}}</h2>
+                    <p>{{app.developer}}</p>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="row">
+                <h3>Information</h3>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Developer</th>
+                        <th>{{app.developer}}</th>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <th>{{app.category}}</th>
+                    </tr>
+                    <tr>
+                        <th>Size</th>
+                        <th>{{app.size}}</th>
+                    </tr>
+                    <tr>
+                        <th>Version</th>
+                        <th>{{app.version}}</th>
+                    </tr>
+                    <tr>
+                        <th>Rating</th>
+                        <th>{{app.rating}}</th>
+                    </tr>
+                    <tr>
+                        <th>Language</th>
+                        <th>
+                            {% for language in app.language.all %}
+                            {{ language.language_name }}
+                            {% endfor %}
+                        </th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="row">
+
+            <h4>Leave a Comment:</h4>
+            <form role="form">
+                <div class="form-group">
+                <textarea class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+
+            <div class="col-sm-10">
+                <h4>Anja <small>Sep 29, 2015, 9:12 PM</small></h4>
+                <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <br>
+            </div>
+            <div class="col-sm-2 text-center">
+                <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+            </div>
+            <div class="col-sm-10">
+                <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
+                <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <br>
+                <p><span class="badge">2</span> Comment:</p><br>
+                <div class="row">
+                <div class="col-sm-2 text-center">
+                    <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+                </div>
+                <div class="col-xs-10">
+                    <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
+                    <p>Me too! WOW!</p>
+                    <br>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+      
+      <footer class="container-fluid">
+        <p>Powered by SI664 project team</p>
+      </footer>
+</body>
 
 <h1>{{ app.app_name }}</h1>
 {% if app.content_type %}

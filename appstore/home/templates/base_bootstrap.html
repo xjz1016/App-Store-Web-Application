@@ -11,9 +11,9 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
     crossorigin="anonymous">
 
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css"
-    crossorigin="anonymous">
+    crossorigin="anonymous"> -->
 
 <link rel="stylesheet"
     href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
@@ -33,19 +33,20 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.7/webcomponents-loader.js"
   crossorigin="anonymous"></script>
 
-<!--
+
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.js"
   crossorigin="anonymous"></script>
--->
+
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/v4-shims.css">
 
 </head>
 <body>
-{% block navbar %} {% endblock %}
-<div class="container">
+{% block navbar %}
+{% endblock %}
+<div class="container-fluid">
     {% block content %}
     {% endblock %}
 </div>
