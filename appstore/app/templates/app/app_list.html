@@ -5,7 +5,7 @@
 <ul>
   {% for app in app_list %}
     <li>
-        {{ app.app_name }} ({{ app.develper }})
+        <a href="{% url 'app:app_detail'  app.app_id %}">{{ app.app_name }}</a>
     </li>
   {% endfor %}
 </ul>
