@@ -2,12 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
 from app.models import *
-from app.forms import CreateForm
+from app.forms import CreateForm, ReviewForm
 # Create your views here.
 
 class AppListView(ListView):
@@ -52,10 +52,10 @@ class AppDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, pk) :
         app = App.objects.get(app_id=pk)
         # comments = Comment.objects.filter(app=app).order_by('-updated_at')
-        # comment_form = CommentForm()
+        review_form = ReviewForm()
         # context = { 'ad' : ad, 'comments': comments, 'comment_form': comment_form }
         # return render(request, self.template_name, context)
-        ctx = {'app': app}
+        ctx = {'app': app, 'review_form': review_form}
         return render(request, self.template_name, ctx)
 
 
@@ -90,3 +90,12 @@ def stream_file(request, pk) :
     response['Content-Length'] = len(app.picture)
     response.write(app.picture)
     return response
+
+
+class ReviewCreateView(LoginRequiredMixin, View):
+    def post(self, request, pk) :
+        f = get_object_or_404(App, app_id=pk)
+        # reviewer = Reviewer()
+        review = Review(text=request.POST['review'], reviewer=request.user, app=f)
+        review.save()
+        return redirect(reverse('app:app_detail', args=[pk]))

@@ -10,4 +10,5 @@ urlpatterns = [
     path('language/create/', views.LanguageCreate.as_view(), name='language_create'),
     path('app_picture/<int:pk>', views.stream_file, name='app_picture'),
     path('app/<int:pk>', views.AppDetailView.as_view(), name='app_detail'),
+    path('app/<int:pk>/review', views.ReviewCreateView.as_view(), name='app_review_create'),
 ]

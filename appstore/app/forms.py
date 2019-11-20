@@ -48,3 +48,7 @@ class CreateForm(forms.ModelForm):
 
         return instance
 
+
+class ReviewForm(forms.Form):
+    review = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
+
