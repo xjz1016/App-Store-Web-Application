@@ -39,12 +39,10 @@ class AppCreate(LoginRequiredMixin,CreateView):
             return render(request, self.template, ctx)
 
         # Add owner to the model before saving
-        app = form.save(commit=False)
-        app_language = app_language.objects.create(app=app, language=app.language)
-        app_language.save()
-        app.save()
-        # ad.owner = self.request.user
-        # app.save()
+        instance = form.save(commit=False)
+        instance.save()
+        for language in form.cleaned_data['language']:
+            App_to_language.objects.create(app=instance, language=language)
         return redirect(self.success_url)
 
 
@@ -80,8 +78,8 @@ class CategoryCreate(LoginRequiredMixin, CreateView):
 
 class LanguageCreate(LoginRequiredMixin, CreateView):
     model = Language
-    # fields = ['language_name']
-    fields = '__all__'
+    fields = ['language_name']
+    # fields = '__all__'
     success_url = reverse_lazy('app:all')
 
 

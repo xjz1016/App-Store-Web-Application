@@ -75,6 +75,10 @@
                         <th>{{app.category}}</th>
                     </tr>
                     <tr>
+                        <th>Price</th>
+                        <th>{{app.price}}</th>
+                    </tr>
+                    <tr>
                         <th>Size</th>
                         <th>{{app.size}}</th>
                     </tr>
@@ -141,18 +145,5 @@
         <p>Powered by SI664 project team</p>
       </footer>
 </body>
-
-<h1>{{ app.app_name }}</h1>
-{% if app.content_type %}
-<img style="float:right; max-width:50%;" src="{% url 'app:app_picture' app.app_id %}">
-{% endif %}
-<p>
-{{ app.developer }}
-</p>
-<p>
-</p>
-<p>
-<a href="{% url 'app:all' %}">All apps</a>
-</p>
 
 {% endblock %}
