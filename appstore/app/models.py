@@ -8,7 +8,7 @@ class App(models.Model):
     app_name = models.CharField(max_length=100)
     size = models.CharField(max_length=20)
     version = models.CharField(max_length=20)
-    rating = models.DecimalField(max_digits=2, decimal_places=1, null=True)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     category = models.ForeignKey(
         'Category',

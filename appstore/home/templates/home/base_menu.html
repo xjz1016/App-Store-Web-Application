@@ -45,7 +45,7 @@
               <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">User: {{ user.get_username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'accounts:profile_detail' %}">Profile</a></li>
-                  <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+                  <li><a href="{% url 'logout'%}?next=home:home_page">Logout</a></li>
                 </ul>
               </li>
             {% endif %}
@@ -54,7 +54,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'accounts:profile_detail' %}">Profile</a></li>
                   <li><a href="{% url 'app:app_create' %}">Add App</a></li>
-                  <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+                  <li><a href="{% url 'logout'%}?next=home:home_page">Logout</a></li>
                 </ul>
               </li>
             {% endif %}  

@@ -21,7 +21,7 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = App
-        fields = ['app_name', 'size', 'version', 'rating', 'category', 'picture', 'developer',
+        fields = ['app_name', 'size', 'version', 'category', 'picture', 'developer',
     'language', 'price']
 
     # Validate the size of the picture

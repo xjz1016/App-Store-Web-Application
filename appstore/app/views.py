@@ -97,4 +97,6 @@ class ReviewCreateView(LoginRequiredMixin, View):
         reviewer = get_object_or_404(Reviewer, reviewer=request.user)
         review = Review(review_text=request.POST['review'], stars=request.POST['rating'], reviewer=reviewer, app=f)
         review.save()
+        f.rating = str((float(f.rating)+float(request.POST['rating']))/len(f.review_set.all()))
+        f.save()
         return redirect(reverse('app:app_detail', args=[pk]))

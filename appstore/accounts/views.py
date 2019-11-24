@@ -6,7 +6,7 @@ from accounts.models import User
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from accounts.forms import ReviewerSignUpForm, DeveloperSignUpForm
-from app.models import Reviewer
+from app.models import Reviewer, Developer
 # Create your views here.
 
 class SignUp(generic.CreateView):
@@ -52,8 +52,14 @@ class ProfileView(generic.CreateView):
         host = request.get_host()
         template_name = "accounts/profile_detail.html"
         user = request.user
-        reviewer = get_object_or_404(Reviewer, reviewer=user)
-        reviews = reviewer.review_set.all().order_by('-date_updated')
-        reviews_cnt = len(reviews)
-        ctx = {'user': user, 'reviews': reviews, 'reviews_cnt': reviews_cnt}
+        if user.is_reviewer:
+            reviewer = get_object_or_404(Reviewer, reviewer=user)
+            reviews = reviewer.review_set.all().order_by('-date_updated')
+            reviews_cnt = len(reviews)
+            ctx = {'user': user, 'reviews': reviews, 'reviews_cnt': reviews_cnt}
+        if user.is_developer:
+            developer = get_object_or_404(Developer, developer_account=user)
+            apps = developer.app_set.all()
+            apps_cnt = len(apps)
+            ctx = {'user': user, 'apps': apps, 'apps_cnt': apps_cnt}
         return render(request, template_name, ctx)
