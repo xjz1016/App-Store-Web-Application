@@ -82,8 +82,8 @@ class Reviewer(models.Model):
         through='Review',
         related_name='from_app'
     )
-    # def __str__(self):
-    #     return self.reviewer.name
+    def __str__(self):
+        return self.reviewer.username
 
 
 class Language(models.Model):

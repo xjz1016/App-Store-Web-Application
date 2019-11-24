@@ -50,5 +50,6 @@ class CreateForm(forms.ModelForm):
 
 
 class ReviewForm(forms.Form):
-    review = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
-
+    review = forms.CharField(required=True, max_length=500, min_length=3, strip=True,
+        widget=forms.TextInput(attrs={'style': 'height:100px'}), label='comments')
+    rating = forms.DecimalField(max_digits=2, decimal_places=1)

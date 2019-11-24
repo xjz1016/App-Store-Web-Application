@@ -51,11 +51,10 @@ class AppDetailView(LoginRequiredMixin, DetailView):
     template_name = "app/app_detail.html"
     def get(self, request, pk) :
         app = App.objects.get(app_id=pk)
-        # comments = Comment.objects.filter(app=app).order_by('-updated_at')
         review_form = ReviewForm()
-        # context = { 'ad' : ad, 'comments': comments, 'comment_form': comment_form }
-        # return render(request, self.template_name, context)
-        ctx = {'app': app, 'review_form': review_form}
+        reviews = app.review_set.all().order_by('-date_updated')
+        reviews_cnt = len(reviews)
+        ctx = {'app': app, 'review_form': review_form, 'reviews': reviews, 'reviews_cnt': reviews_cnt}
         return render(request, self.template_name, ctx)
 
 
@@ -95,7 +94,7 @@ def stream_file(request, pk) :
 class ReviewCreateView(LoginRequiredMixin, View):
     def post(self, request, pk) :
         f = get_object_or_404(App, app_id=pk)
-        # reviewer = Reviewer()
-        review = Review(text=request.POST['review'], reviewer=request.user, app=f)
+        reviewer = get_object_or_404(Reviewer, reviewer=request.user)
+        review = Review(review_text=request.POST['review'], stars=request.POST['rating'], reviewer=reviewer, app=f)
         review.save()
         return redirect(reverse('app:app_detail', args=[pk]))

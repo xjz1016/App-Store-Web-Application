@@ -28,8 +28,7 @@ class DeveloperSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_developer = True
         user.save()
-        developer = Developer.objects.create(developer_account=user)
-        developer.developer_name = self.cleaned_data.get('developer_name')
+        developer = Developer.objects.create(developer_account=user, developer_name=self.cleaned_data.get('developer_name'))
         return user
 
 
