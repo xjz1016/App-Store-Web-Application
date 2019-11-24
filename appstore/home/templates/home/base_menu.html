@@ -33,7 +33,13 @@
           
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'signup'%}?next={{request.path}}" style="color: white"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white"><span class="glyphicon glyphicon-user"></span> Sign Up </a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'reviewer_signup' %}">Reviewer Account</a></li>
+              <li><a href="{% url 'developer_signup'%}">Developer Account</a></li>
+            </ul>
+          </li>
+
           {% if user.is_authenticated %}
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white">User: {{ user.get_username }} <span class="caret"></span></a>
             <ul class="dropdown-menu">

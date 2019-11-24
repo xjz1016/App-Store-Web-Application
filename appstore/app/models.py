@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from accounts.models import User
 
 # Create your models here.
 class App(models.Model):
@@ -47,7 +48,8 @@ class Category(models.Model):
 
 
 class Developer(models.Model):
-    developer_id = models.AutoField(primary_key=True)
+    developer_account = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    # developer_id = models.AutoField(primary_key=True)
     developer_name = models.CharField(max_length=50)
     def __str__(self):
         return self.developer_name
@@ -73,16 +75,15 @@ class Review(models.Model):
 
 
 class Reviewer(models.Model):
-    reviewer_id = models.AutoField(primary_key=True)
-    reviewer_name = models.CharField(max_length=50)
-    review_count = models.IntegerField()
+    reviewer = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    review_count = models.IntegerField(default=0)
     app = models.ManyToManyField(
         'App', 
         through='Review',
         related_name='from_app'
     )
-    def __str__(self):
-        return self.reviewer_name
+    # def __str__(self):
+    #     return self.reviewer.name
 
 
 class Language(models.Model):
@@ -107,6 +108,7 @@ class App_to_language(models.Model):
         'Language',
         on_delete = models.CASCADE,
     )
+
 
 
 # class Device(models.Model):
