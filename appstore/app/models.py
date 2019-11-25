@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MaxValueValidator, MinValueValidator
 from accounts.models import User
 
 # Create your models here.
@@ -8,10 +8,11 @@ class App(models.Model):
     app_name = models.CharField(max_length=100)
     size = models.CharField(max_length=20)
     version = models.CharField(max_length=20)
-    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0, validators=[MinValueValidator(0),
+                                       MaxValueValidator(5)])
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now=True)
+    # date_created = models.DateTimeField(auto_now_add=True)
+    # date_updated = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(
         'Category',
         on_delete = models.CASCADE,

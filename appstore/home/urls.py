@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
+    path('toprated', views.TopratedView.as_view(), name='toprated_app'),
     # Uncomment this below if you have setup base_bootstrap.html and configured social login
     # path('accounts/login/', auth_views.LoginView.as_view(template_name=social_login)),
 ]
