@@ -40,6 +40,8 @@ class AppCreate(LoginRequiredMixin,CreateView):
 
         # Add owner to the model before saving
         instance = form.save(commit=False)
+        developer = get_object_or_404(Developer, developer_account=request.user)
+        instance.developer = developer
         instance.save()
         for language in form.cleaned_data['language']:
             App_to_language.objects.create(app=instance, language=language)
