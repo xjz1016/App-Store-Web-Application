@@ -103,12 +103,22 @@
                 <h2>REVIEWS</h2>
                 <p>
                     {% load crispy_forms_tags %}
-                    <form method="post" action="{% url 'app:app_review_create' app.app_id %}">
+                    <form method="post" action="{% url 'app:app_review_create' app.app_id %}" id="upload_form">
                         {% csrf_token %}
                         {{ review_form|crispy }}
-                    <input type="submit" value="Submit" class="btn btn-success"> 
+                    <input type="submit" value="Submit" class="btn btn-success" onclick="myFunction(); return false;"> 
                     </form>
                 </p>
+                <script>
+                    function myFunction(){
+                        // var user = '{{ user|escapejs }}';
+                        // if (user.is_developer==true){
+                            alert("Developer account can not review apps");
+                            return false;
+                        // }
+                        // return true;
+                    }
+                </script>
             </div>
 
             <div class="row">

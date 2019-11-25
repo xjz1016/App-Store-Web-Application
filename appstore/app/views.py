@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 
 from app.models import *
 from app.forms import CreateForm, ReviewForm
+from django.core import serializers
 # Create your views here.
 
 class AppListView(ListView):
@@ -56,7 +57,9 @@ class AppDetailView(LoginRequiredMixin, DetailView):
         review_form = ReviewForm()
         reviews = app.review_set.all().order_by('-date_updated')
         reviews_cnt = len(reviews)
-        ctx = {'app': app, 'review_form': review_form, 'reviews': reviews, 'reviews_cnt': reviews_cnt}
+        # json_serializer = serializers.get_serializer("json")()
+        # user = json_serializer.serialize(request.user, ensure_ascii=False)
+        ctx = {'app': app, 'review_form': review_form, 'reviews': reviews, 'reviews_cnt': reviews_cnt, 'user': request.user}
         return render(request, self.template_name, ctx)
 
 
