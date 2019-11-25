@@ -59,7 +59,7 @@
 
     <div class="col-sm-9">
       <hr>
-      <h2>Popular Apps<button type="button" onclick="window.location.href='{% url 'home:toprated_app' %}';" class="btn btn-success pull-right"> See more</button></h2><br><br>
+      <h2>Top Rated Apps<button type="button" onclick="window.location.href='{% url 'home:toprated_app' %}';" class="btn btn-success pull-right"> See more</button></h2><br><br>
       <div class="container-fluid">    
           <div class="row">
             {% for popular_app in popular_apps %}

@@ -105,3 +105,16 @@ class ReviewCreateView(LoginRequiredMixin, View):
         f.rating = str((float(f.rating)+float(request.POST['rating']))/len(f.review_set.all()))
         f.save()
         return redirect(reverse('app:app_detail', args=[pk]))
+
+
+
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+
+    if not q:
+        error_msg = 'Please type in keywords'
+        return render(request, 'app/result.html', {'error_msg': error_msg})
+
+    app_list = App.objects.filter(app_name__icontains = q)
+    return render(request, 'app/result.html', {'error_msg': error_msg, 'app_list': app_list})
