@@ -1,144 +1,154 @@
 {% extends "home/base_menu.html" %}
-{% load humanize %} 
+{% load humanize %}
 {% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {
+            height: 1500px
+        }
 
-    .navbar-default{
-      background-color: #333;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
 
-    #round{
-      border-radius: 25px;
-    }
-  </style>
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        .navbar-default {
+            background-color: #333;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        #round {
+            border-radius: 25px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row content">
-    
-        <div class="col-sm-9">
-            <div class="row">
-                <div class="col-sm-3">
-                    <img style="float:left; max-width:100%;" src="{% url 'app:app_picture' app.app_id %}" id="round" height="180" width="180">
-                    <br><br>
-                </div>
 
-                <div class="col-sm-2" style= "text-align: left">
-                    <h2>{{app.app_name}}</h2>
-                    <p>{{app.developer}}</p>
-                    <p>$ {{app.price}}<p>
-                </div>
-            </div>
-            <hr>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img style="float:left; max-width:100%;" src="{% url 'app:app_picture' app.app_id %}" id="round"
+                            height="180" width="180">
+                        <br><br>
+                    </div>
 
-            <div class="row">
-                <h3>Information</h3>
-                <table style="width: 100%;">
-                    <tr>
-                        <th>Developer</th>
-                        <th>{{app.developer}}</th>
-                    </tr>
-                    <tr>
-                        <th>Category</th>
-                        <th>{{app.category}}</th>
-                    </tr>
-                    <tr>
-                        <th>Size</th>
-                        <th>{{app.size}}</th>
-                    </tr>
-                    <tr>
-                        <th>Version</th>
-                        <th>{{app.version}}</th>
-                    </tr>
-                    <tr>
-                        <th>Rating</th>
-                        <th>{{app.rating}}</th>
-                    </tr>
-                    <tr>
-                        <th>Language</th>
-                        <th>
-                            {% for language in app.language.all %}
+                    <div class="col-sm-2" style="text-align: left">
+                        <h2>{{app.app_name}}</h2>
+                        <p>{{app.developer}}</p>
+                        <p>$ {{app.price}}<p>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <h3>Information</h3>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>Developer</th>
+                            <th>{{app.developer}}</th>
+                        </tr>
+                        <tr>
+                            <th>Category</th>
+                            <th>{{app.category}}</th>
+                        </tr>
+                        <tr>
+                            <th>Size</th>
+                            <th>{{app.size}}</th>
+                        </tr>
+                        <tr>
+                            <th>Version</th>
+                            <th>{{app.version}}</th>
+                        </tr>
+                        <tr>
+                            <th>Rating</th>
+                            <th>{{app.rating}}</th>
+                        </tr>
+                        <tr>
+                            <th>Language</th>
+                            <th>
+                                {% for language in app.language.all %}
                                 {{ language.language_name }}
-                            {% endfor %}
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <hr>
-
-            <div class="row">
-                <h2>REVIEWS</h2>
-                <p>
-                    {% load crispy_forms_tags %}
-                    <form method="post" action="{% url 'app:app_review_create' app.app_id %}" id="upload_form">
-                        {% csrf_token %}
-                        {{ review_form|crispy }}
-                    <input type="submit" value="Submit" class="btn btn-success" onclick="myFunction(); return false;"> 
-                    </form>
-                </p>
-                <script>
-                    function myFunction(){
-                        // var user = '{{ user|escapejs }}';
-                        // if (user.is_developer==true){
-                            alert("Developer account can not review apps");
-                            return false;
-                        // }
-                        // return true;
-                    }
-                </script>
-            </div>
-
-            <div class="row">
-            <p><span class="badge">{{reviews_cnt}}</span> Comments:</p><br>
-            {% for review in reviews %}
-                <div class="col-sm-10">
-                    <h4>{{review.reviewer}} <small>{{review.date_updated}}</small>{{review.stars}}</h4>
-                    <p>{{review.review_text}}</p>
-                    <br>
+                                {% endfor %}
+                            </th>
+                        </tr>
+                    </table>
                 </div>
-            {% endfor %}
+                <hr>
+
+                <div class="row">
+                    <h2>REVIEWS</h2>
+                    <p>
+                        {% load crispy_forms_tags %}
+                        <form method="post" action="{% url 'app:app_review_create' app.app_id %}" id="upload_form">
+                            {% csrf_token %}
+                            {{ review_form|crispy }}
+                            <input type="submit" value="Submit" class="btn btn-success"
+                                onclick="myFunction(); return false;">
+                        </form>
+                    </p>
+
+                    {% if user.is_developer%}
+                        <script>
+                            function myFunction() {
+                                alert("Developer account cannot review apps!");
+                                return false;
+                            }
+                        </script>
+                    {% endif %}
+
+
+                </div>
+
+                <div class="row">
+                    <p><span class="badge">{{reviews_cnt}}</span> Comments:</p><br>
+                    {% for review in reviews %}
+                    <div class="col-sm-10">
+                        <h4>{{review.reviewer}} <small>{{review.date_updated}}</small>{{review.stars}}</h4>
+                        <p>{{review.review_text}}</p>
+                        <br>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
-      
-      <footer class="container-fluid">
+
+    <footer class="container-fluid">
         <p>Powered by SI664 project team</p>
-      </footer>
+    </footer>
 </body>
 
 {% endblock %}
