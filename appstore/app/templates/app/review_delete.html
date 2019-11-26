@@ -1,0 +1,13 @@
+{% extends "home/base_menu.html" %}
+{% block content %}
+<h1>Delete Review</h1>
+
+<p>Are you sure you want to delete the review:</p>
+<p>{{ review.review_text }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+  <input type="button" value="Cancel" onclick="window.location.href='{% url 'accounts:profile_detail' %}';">
+</form>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
 from django.urls import reverse_lazy, reverse
@@ -26,7 +26,7 @@ class AppCreate(LoginRequiredMixin,CreateView):
     # 'language']
     # success_url = reverse_lazy('app:all')
     template = 'app/app_form.html'
-    success_url = reverse_lazy('app:all')
+    success_url = reverse_lazy('home:home_page')
     def get(self, request, pk=None) :
         form = CreateForm()
         ctx = { 'form': form }
@@ -39,7 +39,7 @@ class AppCreate(LoginRequiredMixin,CreateView):
             ctx = {'form' : form}
             return render(request, self.template, ctx)
 
-        # Add owner to the model before saving
+        # Add developer to the model before saving
         instance = form.save(commit=False)
         developer = get_object_or_404(Developer, developer_account=request.user)
         instance.developer = developer
@@ -57,21 +57,44 @@ class AppDetailView(LoginRequiredMixin, DetailView):
         review_form = ReviewForm()
         reviews = app.review_set.all().order_by('-date_updated')
         reviews_cnt = len(reviews)
-        # json_serializer = serializers.get_serializer("json")()
-        # user = json_serializer.serialize(request.user, ensure_ascii=False)
         ctx = {'app': app, 'review_form': review_form, 'reviews': reviews, 'reviews_cnt': reviews_cnt, 'user': request.user}
         return render(request, self.template_name, ctx)
 
 
 class AppUpdate(LoginRequiredMixin, UpdateView):
-    model = App
-    fields = '__all__'
-    success_url = reverse_lazy('app:all')
+    template = 'app/app_form.html'
+    success_url = reverse_lazy('accounts:profile_detail')
+    def get(self, request, pk) :
+        developer = get_object_or_404(Developer, developer_account=request.user)
+        app = get_object_or_404(App, app_id=pk, developer=developer)
+        form = CreateForm(instance=app)
+        ctx = { 'form': form }
+        return render(request, self.template, ctx)
+
+    def post(self, request, pk=None) :
+        developer = get_object_or_404(Developer, developer_account=request.user)
+        app = get_object_or_404(App, app_id=pk, developer=developer)
+        form = CreateForm(request.POST, request.FILES or None, instance=app)
+
+        if not form.is_valid() :
+            ctx = {'form' : form}
+            return render(request, self.template, ctx)
+
+        app = form.save(commit=False)
+        app.save()
+        app_lan_deletes = get_list_or_404(App_to_language, app=app)
+        for app_lan_delete in app_lan_deletes:
+            app_lan_delete.delete()
+        for language in form.cleaned_data['language']:
+            App_to_language.objects.create(app=app, language=language)
+
+        return redirect(self.success_url)
 
 class AppDelete(LoginRequiredMixin, DeleteView):
     model = App
-    fields = '__all__'
-    success_url = reverse_lazy('app:all')
+    template_name = 'app/app_delete.html'
+    # fields = '__all__'
+    success_url = reverse_lazy('accounts:profile_detail')
 
 
 class CategoryCreate(LoginRequiredMixin, CreateView):
@@ -107,6 +130,15 @@ class ReviewCreateView(LoginRequiredMixin, View):
         return redirect(reverse('app:app_detail', args=[pk]))
 
 
+
+class ReviewDeleteView(LoginRequiredMixin, View):
+    model = Review
+    template_name = 'app/review_delete.html'
+    def get_success_url(self):
+        app = self.object.app
+        return reverse('app:app_detail', args=[app.app_id])
+    # fields = '__all__'
+    # success_url = reverse_lazy('accounts:profile_detail')
 
 def search(request):
     q = request.GET.get('q')

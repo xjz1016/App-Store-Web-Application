@@ -1,0 +1,65 @@
+{% extends "home/base_menu.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    .navbar-default{
+      background-color: #333;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+
+    #round{
+      border-radius: 25px;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid">    
+          {% for newrelease_app in newrelease_list %}
+          <hr>
+          <div class="row">
+                <div class="col-sm-3">
+                    <img style="float:left; max-width:100%;" src="{% url 'app:app_picture' newrelease_app.app_id %}" id="round" height="150" width="150">
+                    <br><br>
+                </div>
+
+                <div class="col-sm-2" style= "text-align: left">
+                    <h2><a href="{% url 'app:app_detail' newrelease_app.app_id %}">{{newrelease_app.app_name}}</a></h2>
+                    <p><b>{{newrelease_app.developer}}</b></p>
+                    <p><b>Rating:</b> {{newrelease_app.rating}}<p>
+                </div>
+            </div>
+          {% endfor %}
+    </div>
+</body>
+{% endblock %}

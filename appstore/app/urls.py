@@ -12,4 +12,7 @@ urlpatterns = [
     path('app/<int:pk>', views.AppDetailView.as_view(), name='app_detail'),
     path('app/<int:pk>/review', views.ReviewCreateView.as_view(), name='app_review_create'),
     path('search', views.search, name='search'),
+    path('app/<int:pk>/update/', views.AppUpdate.as_view(), name='app_update'),
+    path('app/<int:pk>/delete/', views.AppDelete.as_view(), name='app_delete'),
+    path('review/<int:pk>/delete/', views.ReviewDeleteView.as_view(), name='review_delete'),
 ]
