@@ -134,11 +134,29 @@ class ReviewCreateView(LoginRequiredMixin, View):
 class ReviewDeleteView(LoginRequiredMixin, View):
     model = Review
     template_name = 'app/review_delete.html'
-    def get_success_url(self):
-        app = self.object.app
-        return reverse('app:app_detail', args=[app.app_id])
+    success_url = reverse_lazy('accounts:profile_detail')
+    # def get_success_url(self):
+    #     app = self.object.app
+    #     return reverse('app:app_detail', args=[app.app_id])
     # fields = '__all__'
-    # success_url = reverse_lazy('accounts:profile_detail')
+    def get(self, request, pk) :
+        review = get_object_or_404(Review, review_id=pk)
+        ctx = {'review': review}
+        return render(request, self.template_name, ctx)
+    def post(self, request, pk) :
+        review = get_object_or_404(Review, review_id=pk)
+        rating_delete = float(review.stars)
+        review.delete()
+        f = get_object_or_404(App, app_id=review.app.app_id)
+        length = len(f.review_set.all())
+        if length==0:
+            f.rating = 0
+        else:
+            f.rating = str((float(f.rating)*(length+1)-rating_delete)/length)
+        f.save()
+        return redirect(self.success_url)
+
+
 
 def search(request):
     q = request.GET.get('q')
