@@ -7,6 +7,11 @@ urlpatterns = [
     path('toprated', views.TopratedView.as_view(), name='toprated_app'),
     path('recommended', views.RecommendedView.as_view(), name='recommended_app'),
     path('newrelease', views.NewreleaseView.as_view(), name='newrelease_app'),
+    path('category', views.CategoryView.as_view(), name='category_list'),
+    path('category/<int:pk>', views.AppsPerCategoryView.as_view(), name='apps_per_category'),
+    path('rank', views.RankView.as_view(), name='rank_list'),
+    path('language', views.LanguageView.as_view(), name='language_list'),
+    path('language/<int:pk>', views.AppsPerLanguageView.as_view(), name='apps_per_language'),
     # Uncomment this below if you have setup base_bootstrap.html and configured social login
     # path('accounts/login/', auth_views.LoginView.as_view(template_name=social_login)),
 ]
