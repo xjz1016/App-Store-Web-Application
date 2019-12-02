@@ -1,5 +1,5 @@
 from django import forms
-from app.models import App
+from app.models import App, Review
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from app.humanize import naturalsize
 
@@ -49,8 +49,18 @@ class CreateForm(forms.ModelForm):
         return instance
 
 
-class ReviewForm(forms.Form):
-    review = forms.CharField(required=True, max_length=500, min_length=3, strip=True,
-        widget=forms.TextInput(attrs={'style': 'height:100px'}), label='comments')
-    # rating = forms.DecimalField(max_digits=2, decimal_places=1)
-    rating = forms.IntegerField(max_value=5, min_value=0)
+class ReviewForm(forms.ModelForm):
+    # review_text = forms.CharField(required=True, max_length=500, min_length=3, strip=True,
+    #         widget=forms.TextInput(attrs={'style': 'height:100px'}), label='comments')
+    # stars = forms.IntegerField(max_value=5, min_value=0)
+    class Meta:
+        model = Review
+        fields = ['review_text', 'stars']
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        # self.fields['review_text'] = forms.CharField(required=True, max_length=500, min_length=3, strip=True,
+        #     widget=forms.TextInput(attrs={'style': 'height:100px'}), label='comments')
+        self.fields['review_text'] = forms.CharField(required=True, max_length=500, min_length=3, strip=True,
+             label='comments', widget=forms.Textarea(attrs={'style': 'height:100px'}))
+        # self.fields['stars'].widget = forms.IntegerField(max_value=5, min_value=0)
+        self.fields['stars'] = forms.IntegerField(max_value=5, min_value=0, label='rating')

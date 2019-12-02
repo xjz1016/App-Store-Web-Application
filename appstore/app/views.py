@@ -120,12 +120,24 @@ def stream_file(request, pk) :
 
 
 class ReviewCreateView(LoginRequiredMixin, View):
+    template = "app/app_detail.html"
     def post(self, request, pk) :
+        form = ReviewForm(request.POST, request.FILES or None)
+
+        # if not form.is_valid() :
+        #     ctx = {'form' : form}
+        #     return render(request, self.template, ctx)
+
+        # Add developer to the model before saving
+        review = form.save(commit=False)
         f = get_object_or_404(App, app_id=pk)
         reviewer = get_object_or_404(Reviewer, reviewer=request.user)
-        review = Review(review_text=request.POST['review'], stars=request.POST['rating'], reviewer=reviewer, app=f)
+        review.reviewer = reviewer
+        review.app = f
         review.save()
-        f.rating = str((float(f.rating)+float(request.POST['rating']))/len(f.review_set.all()))
+
+        length = len(f.review_set.all())
+        f.rating = str((float(f.rating)*(length-1)+float(review.stars))/length)
         f.save()
         return redirect(reverse('app:app_detail', args=[pk]))
 
@@ -155,6 +167,37 @@ class ReviewDeleteView(LoginRequiredMixin, View):
             f.rating = str((float(f.rating)*(length+1)-rating_delete)/length)
         f.save()
         return redirect(self.success_url)
+
+
+class ReviewUpdate(LoginRequiredMixin, View):
+    template = 'app/review_update.html'
+    success_url = reverse_lazy('accounts:profile_detail')
+    def get(self, request, pk) :
+        reviewer = get_object_or_404(Reviewer, reviewer=request.user)
+        review = get_object_or_404(Review, review_id=pk, reviewer=reviewer)
+        form = ReviewForm(instance=review)
+        ctx = { 'form': form }
+        return render(request, self.template, ctx)
+
+    def post(self, request, pk=None) :
+        reviewer = get_object_or_404(Reviewer, reviewer=request.user)
+        review = get_object_or_404(Review, review_id=pk, reviewer=reviewer)
+        review_rate = float(review.stars)
+        form = ReviewForm(request.POST, request.FILES or None, instance=review)
+
+        if not form.is_valid() :
+            ctx = {'form' : form}
+            return render(request, self.template, ctx)
+
+        review = form.save(commit=False)
+        review.save()
+        f = get_object_or_404(App, app_id=review.app.app_id)
+        length = len(f.review_set.all())
+        f.rating = str((float(f.rating)*length-review_rate+float(review.stars))/length)
+        f.save()
+
+        return redirect(self.success_url)
+
 
 
 
