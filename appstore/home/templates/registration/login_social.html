@@ -22,9 +22,9 @@
 {{ form|crispy }}
 <input type="submit" class="btn btn-primary" value="Login Locally" />
 <input type="hidden" name="next" value="{{ next }}" />
-<a class="btn btn-info" role="button" href="{% url 'social:begin' 'github' %}?next={{ next }}">
+<!-- <a class="btn btn-info" role="button" href="{% url 'social:begin' 'github' %}?next={{ next }}">
   <i class="fa fa-github" aria-hidden="true"></i>
-  Login with GitHub</a>
+  Login with GitHub</a> -->
 </form>
 <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
 
