@@ -55,7 +55,7 @@
             <p><span class="badge">{{reviews_cnt}}</span> Comments:</p><br>
             {% for review in reviews %}
                 <div class="col-sm-10">
-                    <h4><a href="{% url 'app:app_detail' review.app.app_id %}">{{review.app}}</a> <small>{{review.date_updated}}</small> &nbsp;{{review.stars}} &nbsp; <a href="{% url 'app:review_update' review.review_id %}">Update</a> &nbsp; <a href="{% url 'app:review_delete' review.review_id %}">Delete</a></h4>
+                    <h4><a href="{% url 'app:app_detail' review.app.app_id %}">{{review.app}}</a> <small>{{review.date_updated}}</small> &nbsp;{{review.stars}} <small>out of 5</small> &nbsp; <small><a href="{% url 'app:review_update' review.review_id %}">Update</a></small> &nbsp; <small><a href="{% url 'app:review_delete' review.review_id %}">Delete</a></small></h4>
                     <p>{{review.review_text}}</p>
                     <br>
                 </div>
@@ -68,7 +68,7 @@
             <p><span class="badge">{{apps_cnt}}</span> Apps:</p><br>
             {% for app in apps %}
                 <div class="col-sm-10">
-                    <h4><a href="{% url 'app:app_detail' app.app_id %}">{{app}}</a> {{app.rating}} &nbsp; <a href="{% url 'app:app_update' app.app_id %}">Edit</a> &nbsp; <a href="{% url 'app:app_delete' app.app_id %}">Delete</a></h4>
+                    <h4><a href="{% url 'app:app_detail' app.app_id %}">{{app}}</a> {{app.rating}} <small>out of 5</small> &nbsp; <small><a href="{% url 'app:app_update' app.app_id %}">Edit</a></small> &nbsp; <small><a href="{% url 'app:app_delete' app.app_id %}">Delete</a></small></h4>
                     <br>
                 </div>
             {% endfor %}

@@ -12,13 +12,13 @@ with open(fname) as csvfile:
         if t==0:
             t += 1
             continue
-        if t>=2:
-            break
+        # if t>=2:
+        #     break
         cur.execute('SELECT * FROM app_developer WHERE developer_name = ? ', (line[5],))
         row = cur.fetchone()
         if row is None:
-            cur.execute('''INSERT INTO app_developer (developer_name)
-                    VALUES (?)''', (line[5],))
+            cur.execute('''INSERT INTO app_developer (developer_name, developer_account_id)
+                    VALUES (?,?)''', (line[5], 1000+t))
         else:
             print('%s already exists' %line[5])
         cur.execute('SELECT * FROM app_developer WHERE developer_name = ? ', (line[5],))
@@ -52,8 +52,9 @@ with open(fname) as csvfile:
 
         cur.execute('SELECT * FROM app_app WHERE app_name = ? ', (line[1],))
         row = cur.fetchone()
+        version = line[11].split()[-1]
         if row is None:
-            cur.execute('INSERT INTO app_app(app_name, developer_id, price, size, version, category_id, rating, date_created, date_updated) VALUES (?,?,?,?,?,?,0,0,0)', (line[1], developer_id, 0, line[9], line[11], category_id,))
+            cur.execute('INSERT INTO app_app(app_name, developer_id, price, size, version, category_id, rating, date_created, date_updated) VALUES (?,?,?,?,?,?,0,?,?)', (line[1], developer_id, 0, line[9], version, category_id,'2019-12-03 01:13:55.130258','2019-12-03 01:13:55.130258'))
             cur.execute('SELECT * FROM app_app WHERE app_name = ? ', (line[1],))
             row = cur.fetchone()
             for id in lan_id:
