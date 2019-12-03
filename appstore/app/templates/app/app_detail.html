@@ -141,19 +141,21 @@
                     <p><span class="badge">{{reviews_cnt}}</span> Comments:</p><br>
                     {% for review in reviews %}
                     <div class="col-sm-10">
-                        <h4>{{review.reviewer}} &nbsp; <small>{{review.date_updated}}</small> &nbsp; {{review.stars}} <small>out of 5</small></h4>
-                        <ul></ul>
-                        <script>
-                                var ilist = document.getElementById('review');
-                                // alert(ilist)
-                                // alert('传递变量成功');
-                                for (var i = 1; i <= 5; i++) {
-                                    // $('ul').append('<span class="glyphicon glyphicon-star"></span>')
-                                }
-                        </script>
+                        <h4>{{review.reviewer}} &nbsp; <small>{{review.date_updated}}</small> </h4>
+                        <p id={{review.review_id}}></p>
                         <p>{{review.review_text}}</p>
                         <br>
                     </div>
+                    <script>
+                            var num_stars = '{{review.stars}}'
+                            var output = ''
+                            var label = '{{review.review_id}}'
+                            for(i = 0; i < num_stars; i++){
+                                output += '<span class="glyphicon glyphicon-star"></span>'
+                            };
+                            // document.getElementById("stars").innerHTML=output
+                            $('#'+label).html(output);
+                    </script>
                     {% endfor %}
                 </div>
             </div>
